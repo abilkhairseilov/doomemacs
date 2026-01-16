@@ -13,6 +13,13 @@
 (package!
   org-roam-ui)
 
+(package!
+  typst-ts-mode)
+
+(package! lsp-tailwindcss)
+
+(package! svelte-mode)
+
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;; (package! some-package)
 

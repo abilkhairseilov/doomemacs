@@ -31,7 +31,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-nord-light)
+(setq doom-theme 'doom-bluloco-dark)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -74,8 +74,37 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; Set the default shell for Emacs
+(setq shell-file-name (executable-find "zsh"))
+
+;; Specifically for vterm
+(setq vterm-shell (executable-find "zsh"))
+
+;; Optional: Ensure the SHELL environment variable is also correct within Emacs
+(setenv "SHELL" (executable-find "zsh"))
+
+;; Org-capture templates
+(after! org
+  (setq org-capture-templates
+    (append org-capture-templates
+
+                 '(
+                   ("S" "Subjects")
+                   ("Sc" "Chemistry" entry
+                    (file+headline "workspace/a-level/chemistry.org" "Chemistry")
+                    "* %U\nTopic: %?\n- %i")
+                  )
+    )
+))
+
 (use-package! websocket
     :after org-roam)
+
+(use-package! lsp-tailwindcss
+  :after lsp-mode
+  :hook (css-mode . (lambda () (require 'lsp-tailwindcss) (lsp)))
+  :config
+  (setq lsp-tailwindcss-add-on-mode t))
 
 (use-package! org-roam-ui
     :after org-roam ;; or :after org

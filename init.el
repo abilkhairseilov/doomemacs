@@ -146,7 +146,7 @@
        ;;json              ; At least it ain't XML
        ;;janet             ; Fun fact: Janet is me!
        ;;(java +lsp)       ; the poster child for carpal tunnel syndrome
-       ;;javascript        ; all(hope(abandon(ye(who(enter(here))))))
+       (javascript +lsp)        ; all(hope(abandon(ye(who(enter(here))))))
        ;;julia             ; a better, faster MATLAB
        ;;kotlin            ; a better, slicker Java(Script)
        latex             ; writing papers in Emacs has never been so fun
@@ -169,7 +169,7 @@
        ;;rest              ; emacs as a rest client
        ;;rst               ; rest in peace
        ;;(ruby +rails)     ; 1.step {|i| p "ruby is #{i.even? ? 'love' : 'life'}"}
-       ;;(rust +lsp)       ; fe2o3.unwrap().unwrap().unwrap().unwrap()
+       (rust +lsp)       ; fe2o3.unwrap().unwrap().unwrap().unwrap()
        ;;scala             ; java, but good
        ;;(scheme +guile)   ; a fully conniving family of lisps
        sh                ; she sells {ba,z,fi}sh shells on the c xor
@@ -177,7 +177,7 @@
        ;;solidity          ; do you need a blockchain? no.
        ;;swift             ; who asked for emoji variables?
        ;;terra             ; earth and moon in alignment for performance.
-       ;;web               ; the tubes
+       web               ; the tubes
        ;;yaml              ; json, but readable
        ;;zig               ; c, but simpler
 
