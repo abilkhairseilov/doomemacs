@@ -20,6 +20,12 @@
 
 (package! svelte-mode)
 
+;; protesilaos packages
+(package! doric-themes)
+(package! fontaine)
+(package! spacious-padding)
+(package! logos)
+
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;; (package! some-package)
 

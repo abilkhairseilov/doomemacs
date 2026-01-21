@@ -20,8 +20,9 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "JetBrainsMono Nerd Font" :size 20 :weight 'semi-light)
-     doom-variable-pitch-font (font-spec :family "Noto Sans" :size 21))
+(setq doom-font (font-spec :family "Aporetic Sans Mono" :size 20 :weight 'semi-light)
+     doom-variable-pitch-font (font-spec :family "Noto Sans" :size 21)
+     doom-symbol-font (font-spec :family "JetBrainsMono Nerd Font" :size 20))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -31,7 +32,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-dark+)
+(setq doom-theme 'doric-oak)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -99,6 +100,8 @@
                   )
     )
 ))
+
+(spacious-padding-mode t)
 
 (use-package! websocket
     :after org-roam)
