@@ -21,8 +21,9 @@
 ;; accept. For example:
 ;;
 (setq doom-font (font-spec :family "Aporetic Sans Mono" :size 20 :weight 'semi-light)
+      doom-big-font (font-spec :family "Noto Sans" :size 30)
      doom-variable-pitch-font (font-spec :family "Noto Sans" :size 21)
-     doom-symbol-font (font-spec :family "JetBrainsMono Nerd Font" :size 20))
+     doom-symbol-font (font-spec :family "Symbols Nerd Font Mono" :size 20))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -32,7 +33,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doric-oak)
+(setq doom-theme 'doric-water)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -75,6 +76,9 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; transparency; pgtk build only
+(add-to-list 'default-frame-alist '( alpha-background . 85 ))
+
 ;; Set the default shell for Emacs
 (setq shell-file-name (executable-find "zsh"))
 
@@ -83,6 +87,24 @@
 
 ;; Optional: Ensure the SHELL environment variable is also correct within Emacs
 (setenv "SHELL" (executable-find "zsh"))
+
+;; (defun custom-org-insert-properties-hookfun ()
+;;   (when (and (= (point-max) 1))
+;;              (eq major-mode 'org-mode))
+;;         (insert
+;;          "#+DATE: " (format-time-string "<%Y-%m-%d %a> %H:%M") "\n"
+;;          "#+TAGS: \n"
+;;          ))
+
+;; (add-hook! 'org-mode-hook #'custom-org-insert-properties-hookfun)
+
+(setq org-roam-capture-templates
+      '(("d" "default" plain
+         "%?"
+         :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                            ":PROPERTIES:\n:CREATED: %U\n:CATEGORY:\n:END:\n#+title: ${title}\n#+filetags: \n")
+         :unnarrowed t)))
+
 
 ;; Org-capture templates
 (after! org
@@ -98,6 +120,31 @@
                     (file+headline "workspace/a-level/computerscience.org" "Computer Science")
                     "* %U\nTopic: %?\n- %i")
                   )
+                 '(
+                   ("M" "Miscellaneous")
+                   ("Mp" "Person" entry
+                    (file+headline "workspace/misc/people.org" "Inbox")
+                    "* %?\n:PROPERTIES:\n:CREATED: %U\n:TYPE: \n:CONTACTS: \n:BIRTHDAY: \n:END:\n")
+                   ("Ms" "Skill" entry
+                    (file+headline "workspace/misc/skills.org" "Inbox")
+                    "* %?\n:PROPERTIES:\n:CREATED: %U\n:TYPE: Skill/Learning\n:SOURCE: Course/Book/Online\n:PROGRESS: Not started/In progress/Completed\n:PRIORITY: \n:END:\n")
+                   ("Mm" "Music" entry
+                    (file+headline "workspace/misc/music.org" "Inbox")
+                    "* %?\n:PROPERTIES:\n:CREATED: %U\n:TYPE: Track/Album/Playlist\n:ARTIST: \n:SOURCE: Streaming/Recommendation/Discovery\n:STATUS: To listen/Listening/Finished\n:END:\n")
+                   ("Mg" "Gym progress" entry
+                    (file+headline "workspace/misc/gym.org" "Inbox")
+                    "* %?\n:PROPERTIES:\n:CREATED: %U\n:TYPE: Exercise/Workout/Plan\n:GOAL: \n:REPS/SETS: \n:WEIGHTS: \n:NOTES: \n:END:\n")
+                   ;; Extra “feeling lucky” entries
+                   ("Mb" "Books / Reading" entry
+                    (file+headline "workspace/misc/books.org" "Inbox")
+                    "* %?\n:PROPERTIES:\n:CREATED: %U\n:TYPE: Book/Article/Comic\n:AUTHOR: \n:STATUS: To read/Reading/Finished\n:RATING: \n:END:\n")
+                   ("Mi" "Ideas / Notes" entry
+                    (file+headline "workspace/misc/ideas.org" "Inbox")
+                    "* %?\n:PROPERTIES:\n:CREATED: %U\n:TYPE: Idea/Note/Project\n:SOURCE: Personal/External\n:STATUS: Draft/In progress/Completed\n:TAGS: \n:END:\n")
+                   ("Mt" "Travel / Places" entry
+                    (file+headline "workspace/misc/travel.org" "Inbox")
+                    "* %?\n:PROPERTIES:\n:CREATED: %U\n:TYPE: Location/Trip\n:DESTINATION: \n:DATES: \n:PLANNER: \n:NOTES: \n:END:\n")
+                   )
     )
 ))
 
@@ -106,17 +153,20 @@
 (use-package! websocket
     :after org-roam)
 
+(add-to-list 'auto-mode-alist '("\\.svelte\\'" . web-mode))
+(setq web-mode-engines-alist '(("svelte" . "\\.svelte\\'")))
+
 (use-package! lsp-tailwindcss
   :after lsp-mode
-  :hook (css-mode . (lambda () (require 'lsp-tailwindcss) (lsp)))
+  :hook (vcss-mode . (lambda () (require 'lsp-tailwindcss) (lsp)))
   :config
   (setq lsp-tailwindcss-add-on-mode t))
 
 (use-package! org-roam-ui
     :after org-roam ;; or :after org
-;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
-;;         a hookable mode anymore, you're advised to pick something yourself
-;;         if you don't care about startup time, use
+    ;;         normally we'd recommend hooking orui after org-roam, but since org-roam does not have
+    ;;         a hookable mode anymore, you're advised to pick something yourself
+    ;;         if you don't care about startup time, use
 ;;  :hook (after-init . org-roam-ui-mode)
     :config
     (setq org-roam-ui-sync-theme t
