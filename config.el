@@ -20,6 +20,9 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
+
+(add-to-list 'custom-theme-load-path "~/.config/emacs/themes/")
+
 (setq doom-font (font-spec :family "Aporetic Sans Mono" :size 20 :weight 'semi-light)
       doom-big-font (font-spec :family "Noto Sans" :size 30)
      doom-variable-pitch-font (font-spec :family "Noto Sans" :size 21)
@@ -33,7 +36,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-nord)
+(setq doom-theme 'kanagawa-wave)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -77,16 +80,20 @@
 ;; they are implemented.
 
 ;; transparency; pgtk build only
-(add-to-list 'default-frame-alist '( alpha-background . 85 ))
+(add-to-list 'default-frame-alist '( alpha-background . 100 ))
 
-;; Set the default shell for Emacs
 (setq shell-file-name (executable-find "zsh"))
-
-;; Specifically for vterm
 (setq vterm-shell (executable-find "zsh"))
-
-;; Optional: Ensure the SHELL environment variable is also correct within Emacs
 (setenv "SHELL" (executable-find "zsh"))
+
+(defun zhori/toggle-transparency ()
+  (interactive)
+  (let ((current-alpha (frame-parameter nil 'alpha-background)))
+    (if (or (not current-alpha) (= current-alpha 100))
+        (set-frame-parameter nil 'alpha-background 85)
+      (set-frame-parameter nil 'alpha-background 100))))
+
+(global-set-key (kbd "C-c t t") 'zhori/toggle-transparency)
 
 ;; (defun custom-org-insert-properties-hookfun ()
 ;;   (when (and (= (point-max) 1))
@@ -118,6 +125,9 @@
                     "* %U\nTopic: %?\n- %i")
                    ("Sp" "Computer science" entry
                     (file+headline "workspace/a-level/computerscience.org" "Computer Science")
+                    "* %U\nTopic: %?\n- %i")
+                   ("Sq" "Physics" entry
+                    (file+headline "workspace/a-level/physics.org" "Physics")
                     "* %U\nTopic: %?\n- %i")
                   )
                  '(

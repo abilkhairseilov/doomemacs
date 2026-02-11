@@ -20,8 +20,11 @@
 
 (package! svelte-mode)
 
+(package! typst-preview)
+
 ;; protesilaos packages
 (package! doric-themes)
+(package! kanagawa-themes)
 (package! fontaine)
 (package! spacious-padding)
 (package! logos)
