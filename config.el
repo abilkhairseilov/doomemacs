@@ -95,15 +95,12 @@
 
 (global-set-key (kbd "C-c t t") 'zhori/toggle-transparency)
 
-;; (defun custom-org-insert-properties-hookfun ()
-;;   (when (and (= (point-max) 1))
-;;              (eq major-mode 'org-mode))
-;;         (insert
-;;          "#+DATE: " (format-time-string "<%Y-%m-%d %a> %H:%M") "\n"
-;;          "#+TAGS: \n"
-;;          ))
-
-;; (add-hook! 'org-mode-hook #'custom-org-insert-properties-hookfun)
+(use-package! gptel
+ :config (setq! gptel-model 'llama3.1
+        gptel-backend (gptel-make-ollama "Ollama"
+                        :host "localhost:11434"
+                        :stream t
+                        :models '("deepseek-r1:8b" "llama3.1"))))
 
 (setq org-roam-capture-templates
       '(("d" "default" plain
@@ -155,6 +152,9 @@
                     (file+headline "workspace/misc/travel.org" "Inbox")
                     "* %?\n:PROPERTIES:\n:CREATED: %U\n:TYPE: Location/Trip\n:DESTINATION: \n:DATES: \n:PLANNER: \n:NOTES: \n:END:\n")
                    )
+
+         ;;         '(("a" "AI Brain Dump" entry (file+headline "~/org/inbox.org" "Brain Dump")
+         ;; "* %? :AI_READY:\n:PROPERTIES:\n:CREATED: %U\n:CONTEXT: %a\n:END:\n\n%i\n\n#+BEGIN_QUERY\nAnalyze this for patterns or TODOs.\n#+END_QUERY"))
     )
 ))
 

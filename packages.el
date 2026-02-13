@@ -17,9 +17,7 @@
   typst-ts-mode)
 
 (package! lsp-tailwindcss)
-
 (package! svelte-mode)
-
 (package! typst-preview)
 
 ;; protesilaos packages
@@ -28,6 +26,8 @@
 (package! fontaine)
 (package! spacious-padding)
 (package! logos)
+
+(package! kdl-mode)
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;; (package! some-package)
