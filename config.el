@@ -86,6 +86,11 @@
 (setq vterm-shell (executable-find "zsh"))
 (setenv "SHELL" (executable-find "zsh"))
 
+(setq org-agenda-files
+      '("~/notes/org/"
+        "~/notes/org/workspace/a-level/"
+        "~/notes/org/workspace/sat/"))
+
 (defun zhori/toggle-transparency ()
   (interactive)
   (let ((current-alpha (frame-parameter nil 'alpha-background)))
@@ -142,7 +147,7 @@ Rules:
       '(("d" "default" plain
          "%?"
          :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
-                            ":PROPERTIES:\n:CREATED: %U\n:CATEGORY:\n:END:\n#+title: ${title}\n#+filetags: \n")
+                            ":PROPERTIES:\n:CREATED: %U\n:CATEGORY:\n:END:\n#+title: ${title}\n#+filetags:\n")
          :unnarrowed t)))
 
 
