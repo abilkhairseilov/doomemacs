@@ -98,9 +98,45 @@
 (use-package! gptel
  :config (setq! gptel-model 'llama3.1
         gptel-backend (gptel-make-ollama "Ollama"
-                        :host "localhost:11434"
+                        :host "blackbox:11434"
                         :stream t
-                        :models '("deepseek-r1:8b" "llama3.1"))))
+                        :models '("deepseek-r1:8b" "llama3.1")))
+
+ (setq-default gptel-directives
+      '((default . "To speak with you is to speak with a sage. Use Markdown for formatting.")
+        (programmer . "You are a polyglot programmer. Use Markdown for code blocks.")
+        ;; Your new custom directive:
+        (org-expert . "You are an Emacs and Org-mode expert.
+Always respond using Org-mode syntax.
+- Use *bold*, /italic/, and =code=.
+- Use asterisks for headings (e.g., * Heading, ** Subheading).
+- Use #+BEGIN_SRC and #+END_SRC for code blocks.
+- Never use Markdown (no triple backticks).")))
+ )
+
+(gptel-make-preset "Org-Agenda-Parser"
+  :directives "You are a parser that transforms messy, raw notes into structured Emacs Org-mode entries.
+Your goal: Identify dates, deadlines, and action items.
+Format:
+* TODO [Item Name]
+  DEADLINE: <YYYY-MM-DD Day>
+  :PROPERTIES:
+  :SOURCE: Raw dump
+  :END:
+  [Brief summary or lecture notes here in bullet points]
+
+If no date is found, just use structured headings.")
+
+(gptel-make-preset "Lecture-Organizer"
+  :directives "You are an Org-mode structure expert.
+Goal: Convert raw lecture/event notes into structured Org-mode.
+Rules:
+1. NEVER delete information. If something is messy, keep it messy but under a heading.
+2. Use asterisks (*) for hierarchy.
+3. Identify 'Deadlines' or 'Dates' and format them as: DEADLINE: <YYYY-MM-DD Day>.
+4. Identify 'Tasks' and format them as: * TODO Task Name.
+5. Use #+BEGIN_SRC / #+END_SRC for any code or formulas.
+6. Preserve mnemonics and acronyms exactly as written.")
 
 (setq org-roam-capture-templates
       '(("d" "default" plain

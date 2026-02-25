@@ -8,7 +8,14 @@
    '("22a0d47fe2e6159e2f15449fcb90bbf2fe1940b185ff143995cc604ead1ea171"
      "aec7b55f2a13307a55517fdf08438863d694550565dee23181d2ebd973ebd6b8"
      "a368631abdadffb6882f9994637d7216167912311447f1ec02f9dc58e9cc62a9"
-     "8c7e832be864674c220f9a9361c851917a93f921fedb7717b1b5ece47690c098" default)))
+     "8c7e832be864674c220f9a9361c851917a93f921fedb7717b1b5ece47690c098" default))
+ '(org-agenda-files
+   '("~/notes/org/workspace/a-level/chemistry.org"
+     "/home/zhori/notes/org/journal.org" "/home/zhori/notes/org/notes.org"
+     "/home/zhori/notes/org/workspace/sat/reading-writing.org"
+     "/home/zhori/notes/org/body-stats.org" "/home/zhori/notes/org/fleeting.org"
+     "/home/zhori/notes/org/index.org" "/home/zhori/notes/org/projects.org"
+     "/home/zhori/notes/org/tea.org" "/home/zhori/notes/org/todo.org")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
